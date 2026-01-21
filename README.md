@@ -4,7 +4,7 @@ End-to-end LightGBM model that **directly predicts optimal S&P 500 positions** u
 
 ## Business Problem
 
-The Hull Tactical competition evaluates models using a modified Sharpe ratio that penalizes both volatility and suboptimal returns [web:100]. Traditional approaches predict returns first, then convert to positions - introducing a disconnect between prediction and the actual objective function.
+The Hull Tactical competition evaluates models using a modified Sharpe ratio that penalizes both volatility and suboptimal returns. Traditional approaches predict returns first, then convert to positions - introducing a disconnect between prediction and the actual objective function.
 
 ## Key Innovation: Direct Position Prediction
 
@@ -52,7 +52,7 @@ In real trading systems, you want models that produce **risk-adjusted positions 
 ## Technical Skills Demonstrated
 
 - **Custom target engineering** for risk-adjusted objectives
-- **Time-series modeling** with financial market data (98 features across 7 factor families) [web:96]
+- **Time-series modeling** with financial market data (98 features across 7 factor families)
 - **Feature engineering** on technical indicators
 - **LightGBM** implementation for regression
 - **Quantitative portfolio optimization** principles embedded in ML
@@ -61,8 +61,8 @@ In real trading systems, you want models that produce **risk-adjusted positions 
 
 Selected for:
 - Superior performance on tabular financial data
-- Efficient handling of high-dimensional feature spaces (98 features) [web:98]
-- Fast training on 8,990 time-series samples [web:98]
+- Efficient handling of high-dimensional feature spaces (98 features) 
+- Fast training on 8,990 time-series samples 
 - Flexible objective functions for custom targets
 
 ## Results
@@ -71,7 +71,7 @@ To be confirmed
 
 ## Dataset
 
-Hull Tactical competition data: 98 features spanning Market dynamics, Macro-economic indicators, and proprietary signals [web:96][web:99]. Decades of S&P 500 market information provided via Kaggle.
+Hull Tactical competition data: 98 features spanning Market dynamics, Macro-economic indicators, and proprietary signals. Decades of S&P 500 market information provided via Kaggle.
 
 **Competition Link:** https://www.kaggle.com/competitions/hull-tactical-market-prediction
 
