@@ -1,6 +1,6 @@
 # Hull Tactical Market Prediction - Direct Position Optimization with LightGBM
 
-End-to-end LightGBM model that **directly predicts optimal S&P 500 positions** under volatility and return penalties for the [Hull Tactical Kaggle Competition](https://www.kaggle.com/competitions/hull-tactical-market-prediction).
+End-to-end ensemble LightGBM model that **directly predicts optimal S&P 500 positions** under volatility and return penalties for the [Hull Tactical Kaggle Competition](https://www.kaggle.com/competitions/hull-tactical-market-prediction).
 
 ## Business Problem
 
@@ -62,12 +62,15 @@ In real trading systems, you want models that produce **risk-adjusted positions 
 Selected for:
 - Superior performance on tabular financial data
 - Efficient handling of high-dimensional feature spaces (98 features) 
-- Fast training on 8,990 time-series samples 
+- Fast training on 8,990 time-series samples. This allows retraining the model in the inference time.
 - Flexible objective functions for custom targets
 
 ## Results
 
-To be confirmed
+- This version of the code is an ensemble of 2 approaches , where the position weights come from 2 models :
+    model a) hyper-parameter-tuned model using unweighted observations on an expanding window (max window length is 9000 observations)
+    model b) hyper-parameter-tuned model using weighted observations on an rolling window (rolling window length is 5000 observations)
+- Sharpe ratio to be confirmed
 
 ## Dataset
 
