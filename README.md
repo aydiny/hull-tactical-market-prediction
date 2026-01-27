@@ -80,5 +80,7 @@ Hull Tactical competition data: 98 features spanning Market dynamics, Macro-econ
 
 ## Project Structure
 ├── notebooks/ # Jupyter notebook with full analysis
+
 ├── requirements.txt # Python dependencies
+
 └── README.md
