@@ -24,18 +24,15 @@ This **end-to-end optimization** ensures the model learns the actual trading obj
 ### Technical Implementation
 
 **Custom Target Engineering:**
-- Formulated optimal position as the training target by incorporating:
-  - Forward-looking returns
-  - Volatility constraints from historical data
-  - Risk-adjusted position sizing rules
+- Formulated an a risk-adjusted "optimal position" for supervised learning by considering forward-looking market returnsas well as volatility and under-performance penalties
   
 **LightGBM Training:**
-- Trained directly on optimal position labels
+- Hyper-parameter tuned with Optuna on optimal position labels
 - Model learns the complex relationship between market features and risk-adjusted positioning
 - Outputs actionable trading signals without post-processing
 
 **Feature Engineering:**
-Working with blackbox market features, I enhanced the signal with:
+Working mainly with blackbox market features, I enhanced the lagged target features with:
 - **RSI (Relative Strength Index)** - momentum oscillator for regime identification
 - **Momentum features** - capturing price trends and velocity on lagged targets
 - **Lagged target-derived indicators** - incorporating historical return patterns
@@ -70,7 +67,7 @@ Selected for:
 - This version of the code is an ensemble of 2 approaches , where the position weights come from 2 models :
     model a) hyper-parameter-tuned model using unweighted observations on an expanding window (max window length is 9000 observations)
     model b) hyper-parameter-tuned model using weighted observations on an rolling window (rolling window length is 5000 observations)
-- Sharpe ratio to be confirmed
+- Inference in progress!  Current Sharpe on a small 1-month data: 3.82
 
 ## Dataset
 
