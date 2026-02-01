@@ -1,54 +1,61 @@
-# Hull Tactical Market Prediction - Direct Position Optimization with LightGBM
+# 🚀 Hull Tactical Market Prediction Engine
 
-<img width="1120" height="280" alt="image" src="https://github.com/user-attachments/assets/72ecd01f-e354-458a-a3fa-1ffa48a5cb1a" />
+<img width="1120" height="280" alt="Market Prediction Visualization" src="https://github.com/user-attachments/assets/72ecd01f-e354-458a-a3fa-1ffa48a5cb1a" />
 
-End-to-end, ensemble LightGBM model that **directly predicts optimal S&P 500 positions** under volatility and return penalties for the [Hull Tactical Kaggle Competition](https://www.kaggle.com/competitions/hull-tactical-market-prediction).
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)](https://www.python.org/)
+[![LightGBM](https://img.shields.io/badge/Model-LightGBM-green)](https://lightgbm.readthedocs.io/)
+[![Status](https://img.shields.io/badge/Status-Inference%20Active-orange)]()
 
-## Business Problem
+An end-to-end ensemble LightGBM system that **directly predicts optimal S&P 500 positions** under volatility and return penalties for the [Hull Tactical Kaggle Competition](https://www.kaggle.com/competitions/hull-tactical-market-prediction).
 
-"Wisdom from most personal finance experts would suggest that it's irresponsible to try and time the market. The Efficient Market Hypothesis (EMH) would agree: everything knowable is already priced in, so don’t bother trying.
+## 🎯 Business Problem
 
-But in the age of machine learning, is it irresponsible to not try and time the market? Is the EMH an extreme oversimplification at best and possibly just…false?"
+*"Wisdom from most personal finance experts would suggest that it's irresponsible to try and time the market... But in the age of machine learning, is it irresponsible to not try?"*
 
-The Hull Tactical competition evaluates models using a modified Sharpe ratio that penalizes both volatility and suboptimal returns. Traditional approaches predict returns first, then convert to positions - introducing a disconnect between prediction and the actual objective function.
+The Hull Tactical competition challenges the Efficient Market Hypothesis by evaluating models on a modified Sharpe ratio. Unlike traditional approaches that predict *price returns* and then optimize, this solution uses **Direct Position Optimization**—learning the optimal risk-adjusted allocation directly from market signals.
 
-## Approach
+## 🏗 Solution Architecture
 
-**Custom Target Engineering:**
-- Formulated an a risk-adjusted "optimal position" target for supervised learning by considering forward looking market returns, as well as volatility and under-performance penalties
-  
-**LightGBM Training:**
-- Hyper-parameter tuned LightGMB with Optuna on the formulated "optimal position" labels
-- Trained 2 models on 2 different time-windows (hyper-parameters optimized individually)
-- Use the ensemble of the 2 models to predict the final trading signal - reducing noise and improve generalization
-- Retrain one of the ensemble models periodically to adapt to additional / changing information
+### 1. Custom Target Engineering (The "Secret Sauce")
+Instead of predicting raw returns (regression), I formulated a **Risk-Adjusted Optimal Position Target** for supervised learning. This target incorporates:
+*   Forward-looking market returns.
+*   Volatility penalties.
+*   Under-performance costs.
+This aligns the model's loss function directly with the competition's specific Sharpe Ratio objective.
 
-**Feature Engineering:**
-Working mainly with blackbox market features, I further enhanced the feature universe by engineering simple technical indicator features for lagged target variables:
-- **RSI (Relative Strength Index)** - momentum oscillator for regime identification
-- **Momentum features** - capturing price trends and velocity on lagged targets
-- **Lagged target-derived indicators** - incorporating historical return patterns
+### 2. Ensemble LightGBM Strategy
+*   **Dual-Window Training:** Trained two independent models on different time horizons to capture both long-term regime stability and short-term market shifts.
+*   **Hyperparameter Tuning:** Optimized using **Optuna** to maximize generalization on out-of-sample data.
+*   **Ensemble Logic:** Final trading signal is a weighted ensemble of the two models, reducing variance and smoothing signal noise.
+*   **Adaptive Retraining:** Implemented a periodic retraining loop to allow the model to adapt to new market regimes during the inference phase.
 
-## Technical Skills Demonstrated
+### 3. Feature Engineering
+Enhanced the provided 98 "black-box" features with domain-specific technical indicators:
+*   **Momentum Indicators:** Capturing price velocity and trend strength.
+*   **RSI (Relative Strength Index):** Identifying overbought/oversold regimes.
+*   **Lagged Return Patterns:** Encoding historical market memory.
 
-- **Custom target engineering** for risk-adjusted objectives
-- **Time-series modeling** with financial market data (98 features across 7 factor families)
-- **Feature engineering** on technical indicators
-- **LightGBM** Selected for for its efficient handling of high-dimensional feature spaces to caputure non linear patterns. Hyper-parameter-tuned and trained for the formulated classification problem. Fast training time of 9000+ samples in under 5 minutes allow retraining during inference period.
-- **Quantitative portfolio optimization** An retraniable ML approach to estimate optimal market postions on a live inference environment
+## 🛠 Technical Skills Demonstrated
 
-## Results
-- Inference in progress!  Results will be much more meaningful the full testing period (6 months). Current Sharpe on a small data period (1-month): 3.82
+*   **Quantitative Risk Modeling:** Formulating custom loss functions that penalize volatility (Sharpe-aware learning).
+*   **Ensemble ML Engineering:** Designing a multi-model system with time-window diversity to improve robustness.
+*   **Automated Retraining Pipelines:** Building a system that updates itself with new data, simulating a live trading environment.
+*   **High-Performance ML:** Utilizing LightGBM for efficient handling of high-dimensional feature spaces (9000+ samples trained in <5 mins).
 
-## Dataset
+## 📊 Results
 
-Hull Tactical competition data: 98 features spanning Market dynamics, Macro-economic indicators, and proprietary signals. Decades of S&P 500 market information provided via Kaggle.
+*   **Status:** Inference in progress (Live Testing Period).
+*   **Current Performance:** Achieved a **Sharpe Ratio of 3.82** on the initial 1-month validation period.
+*   **Impact:** The model successfully navigates volatility by adjusting exposure, demonstrating the effectiveness of the "Direct Position" target variable.
 
-**Competition Link:** https://www.kaggle.com/competitions/hull-tactical-market-prediction
+## 📂 Dataset & Structure
 
-## Project Structure
-├── notebooks/ # Jupyter notebook with full analysis
+**Data Source:** [Hull Tactical Competition](https://www.kaggle.com/competitions/hull-tactical-market-prediction)
+*   98 Features: Market dynamics, Macro-economic indicators, Proprietary signals.
+*   Target: S&P 500 daily returns (transformed into optimal position targets).
 
-├── requirements.txt # Python dependencies
-
-└── README.md
+```text
+├── notebooks/                  # Feature Engineering & Training Logic
+├── src/                        # Inference pipeline scripts
+├── requirements.txt            # Python dependencies
+└── README.md                   # Documentation
