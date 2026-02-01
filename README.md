@@ -19,9 +19,8 @@ The Hull Tactical competition challenges the Efficient Market Hypothesis by eval
 ### 1. Custom Target Engineering (The "Secret Sauce")
 Instead of predicting raw returns (regression), I formulated a **Risk-Adjusted Optimal Position Target** for supervised learning. This target incorporates:
 *   Forward-looking market returns.
-*   Volatility penalties.
-*   Under-performance costs.
-This aligns the model's loss function directly with the competition's specific Sharpe Ratio objective.
+*   Under-performance and volatility penalties.
+*   Aligns the model's loss function with the competition's specific Sharpe Ratio objective.
 
 ### 2. Ensemble LightGBM Strategy
 *   **Dual-Window Training:** Trained two independent models on different time horizons to capture both long-term regime stability and short-term market shifts.
