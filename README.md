@@ -32,19 +32,11 @@ Working mainly with blackbox market features, I further enhanced the feature uni
 - **Custom target engineering** for risk-adjusted objectives
 - **Time-series modeling** with financial market data (98 features across 7 factor families)
 - **Feature engineering** on technical indicators
-- **LightGBM** Hyper-parameter tuning and training for a classification problem
+- **LightGBM** Selected for for its efficient handling of high-dimensional feature spaces to caputure non linear patterns. Hyper-parameter-tuned and trained for the formulated classification problem. Fast training time of 9000+ samples in under 5 minutes allow retraining during inference period.
 - **Quantitative portfolio optimization** An retraniable ML approach to estimate optimal market postions on a live inference environment
 
-## Model: LightGBM
-
-Selected for:
-- Superior performance on tabular financial data
-- Efficient handling of high-dimensional feature spaces (98 features) 
-- Fast training on ~9000 daily market observations with 100+ features across macro, technical, and fundamental categories. This allows retraining the model in the inference time, under 5 minutes.
-- Flexible objective functions for custom targets
-
 ## Results
-- Inference in progress!  Current Sharpe on a small data period (1-month): 3.82
+- Inference in progress!  Results will be much more meaningful the full testing period (6 months). Current Sharpe on a small data period (1-month): 3.82
 
 ## Dataset
 
