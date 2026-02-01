@@ -4,55 +4,36 @@ End-to-end, ensemble LightGBM model that **directly predicts optimal S&P 500 pos
 
 ## Business Problem
 
+"Wisdom from most personal finance experts would suggest that it's irresponsible to try and time the market. The Efficient Market Hypothesis (EMH) would agree: everything knowable is already priced in, so don’t bother trying.
+
+But in the age of machine learning, is it irresponsible to not try and time the market? Is the EMH an extreme oversimplification at best and possibly just…false?"
+
 The Hull Tactical competition evaluates models using a modified Sharpe ratio that penalizes both volatility and suboptimal returns. Traditional approaches predict returns first, then convert to positions - introducing a disconnect between prediction and the actual objective function.
 
-## Key Innovation: Direct Position Prediction
-
-### Why This Approach is Superior
-
-Rather than the conventional two-step process:
-1. ~~Predict excess returns~~
-2. ~~Convert predictions to positions using a separate optimization~~
-
-**My model directly predicts optimal trading positions**, training LightGBM to output position sizes that account for:
-- **Return penalties** - opportunity cost of being under-invested or wrongly positioned
-- **Volatility penalties** - risk from excessive position concentration
-- **Competition's modified Sharpe ratio** - aligning the model objective with evaluation metric
-
-This **end-to-end optimization** ensures the model learns the actual trading objective, not a proxy.
-
-### Technical Implementation
+## Approach
 
 **Custom Target Engineering:**
-- Formulated an a risk-adjusted "optimal position" for supervised learning by considering forward-looking market returnsas well as volatility and under-performance penalties
+- Formulated an a risk-adjusted "optimal position" target for supervised learning by considering forward looking market returns, as well as volatility and under-performance penalties
   
 **LightGBM Training:**
-- Hyper-parameter tuned with Optuna on optimal position labels
-- Model learns the complex relationship between market features and risk-adjusted positioning
-- Outputs actionable trading signals without post-processing
+- Hyper-parameter tuned LightGMB with Optuna on the formulated "optimal position" labels
+- Trained 2 models on 2 different time-windows (hyper-parameters optimized individually)
+- Use the ensemble of the 2 models to predict the final trading signal - reducing noise and improve generalization
+- Retrain one of the ensemble models periodically to adapt to additional / changing information
 
 **Feature Engineering:**
-Working mainly with blackbox market features, I enhanced the lagged target features with:
+Working mainly with blackbox market features, I further enhanced the feature universe by engineering simple technical indicator features for lagged target variables:
 - **RSI (Relative Strength Index)** - momentum oscillator for regime identification
 - **Momentum features** - capturing price trends and velocity on lagged targets
 - **Lagged target-derived indicators** - incorporating historical return patterns
-
-## Why This Matters
-
-This approach demonstrates:
-- **Quantitative sophistication** - understanding that the loss function should align with the business objective
-- **Production thinking** - models should output decisions, not intermediate predictions requiring manual intervention
-- **Risk management expertise** - incorporating volatility constraints at the modeling stage, not as an afterthought
-
-In real trading systems, you want models that produce **risk-adjusted positions directly**, not raw forecasts that require separate position sizing logic.
 
 ## Technical Skills Demonstrated
 
 - **Custom target engineering** for risk-adjusted objectives
 - **Time-series modeling** with financial market data (98 features across 7 factor families)
 - **Feature engineering** on technical indicators
-- **LightGBM** implementation for regression
-- **Quantitative portfolio optimization** principles embedded in ML
+- **LightGBM** Hyper-parameter tuning and training for a classification problem
+- **Quantitative portfolio optimization** An retraniable ML approach to estimate optimal market postions on a live inference environment
 
 ## Model: LightGBM
 
@@ -63,11 +44,7 @@ Selected for:
 - Flexible objective functions for custom targets
 
 ## Results
-
-- This version of the code is an ensemble of 2 approaches , where the position weights come from 2 models :
-    model a) hyper-parameter-tuned model using unweighted observations on an expanding window (max window length is 9000 observations)
-    model b) hyper-parameter-tuned model using weighted observations on an rolling window (rolling window length is 5000 observations)
-- Inference in progress!  Current Sharpe on a small 1-month data: 3.82
+- Inference in progress!  Current Sharpe on a small data period (1-month): 3.82
 
 ## Dataset
 
