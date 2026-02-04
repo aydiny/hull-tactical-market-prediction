@@ -12,7 +12,7 @@ An end-to-end ensemble LightGBM system that **directly predicts optimal S&P 500 
 
 *"Wisdom from most personal finance experts would suggest that it's irresponsible to try and time the market... But in the age of machine learning, is it irresponsible to not try?"*
 
-The Hull Tactical competition challenges the Efficient Market Hypothesis by evaluating models on a modified Sharpe ratio. Unlike traditional approaches that predict *price returns* and then optimize, this solution uses **Direct Position Optimization**—learning the optimal risk-adjusted allocation directly from market signals.
+The Hull Tactical competition challenges the Efficient Market Hypothesis by evaluating models on a modified Sharpe ratio. The aim is to build a model that predicts excess returns and includes a betting strategy designed to outperform the S&P 500 while staying within a 120% volatility constraint.
 
 ## 🏗 Solution Architecture
 
