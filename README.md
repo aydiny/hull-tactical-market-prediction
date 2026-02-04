@@ -16,7 +16,7 @@ The Hull Tactical competition challenges the Efficient Market Hypothesis by eval
 
 ## 🏗 Solution Architecture
 
-### 1. Custom Target Engineering (The "Secret Sauce")
+### 1. Custom Target Engineering
 Instead of predicting raw returns (regression), I formulated a **Risk-Adjusted Optimal Position Target** (classification) for supervised learning. This target incorporates:
 *   Forward-looking market returns.
 *   Under-performance and volatility penalties.
