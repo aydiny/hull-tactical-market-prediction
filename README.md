@@ -44,8 +44,6 @@ Enhanced the provided 98 "black-box" features with domain-specific technical ind
 ## 📊 Results
 
 *   **Status:** Inference in progress (Live Testing Period).
-*   **Current Performance:** Achieved a **Sharpe Ratio of 3.82** on the initial 1-month validation period.
-*   **Impact:** The model successfully navigates volatility by adjusting exposure, demonstrating the effectiveness of the "Direct Position" target variable. Results will be more meaningful for the full testing period (6-months)
 
 ## 📂 Dataset & Structure
 
